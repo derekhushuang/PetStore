@@ -24,7 +24,7 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 import {ApiResponseDTO} from "../../service/dto/api-response.dto";
 import {FileInterceptor} from "@nestjs/platform-express";
 import { diskStorage } from 'multer';
-import {Helper} from "../../share/helper";
+import {CommonUtils} from "../../utils/common.utils";
 
 @Controller('pet')
 @UseGuards(AuthGuard, RolesGuard)
@@ -140,8 +140,8 @@ export class PetController {
   @PostMethod('/:id/uploadImage')
   @UseInterceptors(FileInterceptor("photo", {
     storage: diskStorage({
-      destination: Helper.destinationPath,
-      filename: Helper.customFileName,
+      destination: CommonUtils.destinationPath,
+      filename: CommonUtils.customFileName,
     }),
   }))
   @Roles(RoleType.ADMIN)
